@@ -19,14 +19,13 @@ def test_successful(setup_browser):
         browser.element("#userEmail").set_value("Ivan@Nas.com")
         browser.element("#genterWrapper").element(by.text("Other")).click()
         browser.element("#userNumber").set_value("1231231230")
-        # browser.element("#dateOfBirthInput").click()
-        # browser.element(".react-datepicker__month-select").s("July")
-        # browser.element(".react-datepicker__year-select").selectOption("2008")
-        # browser.element(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click()
+        browser.element("#dateOfBirthInput").click()
+        browser.element(".react-datepicker__month-select").s("July")
+        browser.element(".react-datepicker__year-select").type("2008")
+        browser.element(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click()
         browser.element("#subjectsInput").send_keys("Maths")
         browser.element("#subjectsInput").press_enter()
         browser.element("#hobbiesWrapper").element(by.text("Sports")).click()
-        # browser.element("#uploadPicture").uploadFromClasspath("img/1.png")
         browser.element("#currentAddress").set_value("Some street 1")
         browser.element("#state").click()
         browser.element("#stateCity-wrapper").element(by.text("NCR")).click()
@@ -36,5 +35,3 @@ def test_successful(setup_browser):
 
     with allure.step("Check form results"):
         browser.element("#example-modal-sizes-title-lg").should(have.text("Thanks for submitting the form"))
-        # browser.element(".table-responsive").should(
-        #     have.texts(first_name, last_name, "alex@egorov.com", "Some street 1"))
