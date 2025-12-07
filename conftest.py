@@ -10,12 +10,20 @@ from utils import attach
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+DEFAULT_BROWSER_VERSION = "100.0"
+
+
+def pytest_addoption(parser):
+    parser.addoption(
+        '--browser_version',
+        default='128.0'
+    )
 
 @pytest.fixture(scope='function', autouse=True)
-def setup_browser():
+def setup_browser(request):
+    browser_version = request.config.getoption('--browser_version')
+    browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
     options = Options()
-    browser_version = os.getenv("BROWSER_VERSION")
-
     options.set_capability("browserName", "chrome")
     options.set_capability("browserVersion", browser_version)
     options.set_capability("selenoid:options", {
@@ -35,7 +43,7 @@ def setup_browser():
     browser.config.window_height = 1080
     browser.config.base_url = "https://demoqa.com"
 
-    yield
+    yield browser
 
 
     session_id = driver.session_id
