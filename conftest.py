@@ -14,9 +14,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 @pytest.fixture(scope='function', autouse=True)
 def setup_browser():
     options = Options()
+    browser_version = os.getenv("BROWSER_VERSION")
 
     options.set_capability("browserName", "chrome")
-    options.set_capability("browserVersion", "128.0")
+    options.set_capability("browserVersion", BROWSER_VERSION)
     options.set_capability("selenoid:options", {
         "enableVNC": True,
         "enableVideo": True
@@ -27,7 +28,7 @@ def setup_browser():
         options=options
     )
 
-    # Настраиваем глобальный browser
+
     browser.config.driver = driver
     browser.config.timeout = 10
     browser.config.window_width = 1920
@@ -36,7 +37,7 @@ def setup_browser():
 
     yield
 
-    # Сохраняем session_id перед аттачами
+
     session_id = driver.session_id
 
 
