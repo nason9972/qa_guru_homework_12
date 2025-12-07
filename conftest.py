@@ -17,7 +17,7 @@ def setup_browser():
     browser_version = os.getenv("BROWSER_VERSION")
 
     options.set_capability("browserName", "chrome")
-    options.set_capability("browserVersion", BROWSER_VERSION)
+    options.set_capability("browserVersion", browser_version)
     options.set_capability("selenoid:options", {
         "enableVNC": True,
         "enableVideo": True
